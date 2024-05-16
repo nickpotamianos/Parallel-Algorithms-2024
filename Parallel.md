@@ -7,10 +7,10 @@ The parallel sorting function uses OpenMP to distribute the comparison and swapp
   - The core of the parallel implementation is the use of the `#pragma omp parallel` for directive, which instructs the compiler to parallelize the loop that performs the comparison and swapping of adjacent elements.
   - Each iteration of the loop can be executed independently by different threads, allowing multiple elements of the array to be processed in parallel.
 ```
-void parallel_linear_array_sort(std::vector<int>& array, int N) {
-    for (int step = 0; step < 2 * N - 1; ++step) {        
-        #pragma omp parallel for        
-        for (int i = 0; i < N - 1; ++i) {        
+void phase1_parallel_linear_array_sort(std::vector<int>& array, int N) {
+    for (int step = 0; step < 2 * N - 1; ++step) {
+        #pragma omp parallel for
+        for (int i = 0; i < N - 1; ++i) {
             if (array[i] > array[i + 1]) {
                 std::swap(array[i], array[i + 1]);
             }
@@ -26,3 +26,7 @@ void parallel_linear_array_sort(std::vector<int>& array, int N) {
 
   - OpenMP automatically distributes the loop iterations among the available threads, balancing the workload to optimize performance.
 This dynamic distribution helps to minimize idle time for threads, ensuring that all processing units are utilized efficiently.
+
+4. Notes:
+  - Based on my executions, phase 2 doesn't make any difference neither if is executed parallel nor if executed sequentialy.
+  - For the purposes of the exercise the phase 2 is being implemented using both methods (sequential & parallel).
