@@ -31,7 +31,7 @@ This process is repeated for 2𝑁−1 steps, ensuring that by the end of this p
 - This is implicitly handled in our while loop. Once the array is sorted during Phase 1, no further inputs (or swaps) are needed from the left, which is similar to processors not receiving new inputs from their left neighbors.
 2. Sequential and Parallel Sorting:
 
-- Both phase2_sequential_output_sorted_array and phase2_parallel_output_sorted_array functions ensure the array is fully sorted before outputting the values. This corresponds to the processors beginning to pass their values left when no further sorting (input from the left) is required.
+- Both `phase2_sequential_output_sorted_array` and `phase2_parallel_output_sorted_array` functions ensure the array is fully sorted before outputting the values. This corresponds to the processors beginning to pass their values left when no further sorting (input from the left) is required.
 3. Optimized Output:
 
 - The functions repeatedly check and finalize the sorted order, ensuring that each position (processor) passes its value left only when it is correctly placed.
