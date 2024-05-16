@@ -60,8 +60,8 @@ Our implementation consists of a C++ program that reads an array of integers fro
 - The array of integers is initialized based on the selected input method.
 
 ## Sequential Sorting Function:
-- **For simplicity, the sequential code we are using is our Linear Array Sorting Algorithm but without the OpenMP library.
-- We should also consider that the best sequential sorting algorithm runs in `Θ(NlogN)` steps.**
+- **For simplicity, the sequential code we are using is our Linear Array Sorting Algorithm but without the OpenMP library.**
+- **We should also consider that the best sequential sorting algorithm runs in `Θ(NlogN)` steps.**
 
 
 ## Parallel Sorting Function:
