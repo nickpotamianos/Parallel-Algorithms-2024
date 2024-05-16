@@ -21,7 +21,7 @@ void parallel_linear_array_sort(std::vector<int>& array, int N) {
 2. Synchronization:
 
   - OpenMP ensures that each thread executes its portion of the loop concurrently while managing any necessary synchronization between threads.
-  - The loop boundary (for (int i = 0; i < N - 1; ++i)) ensures that adjacent elements are compared and swapped correctly, maintaining the integrity of the sorting process even when multiple threads are involved.
+  - The loop boundary (`for (int i = 0; i < N - 1; ++i)`) ensures that adjacent elements are compared and swapped correctly, maintaining the integrity of the sorting process even when multiple threads are involved.
 3. Load Balancing:
 
   - OpenMP automatically distributes the loop iterations among the available threads, balancing the workload to optimize performance.
