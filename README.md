@@ -90,3 +90,9 @@ You can run the program and choose to input numbers manually or provide a file w
 
 - The program will display the sorted array using both sequential and parallel sorting methods.
 - Execution times for both methods will also be displayed, allowing you to compare their performance.
+
+
+# Demo Video 
+
+https://github.com/nickpotamianos/Parallel-Algorithms-2024/assets/85500667/39b984f1-9ddb-4c1a-86a6-d3b5d77fa114
+
