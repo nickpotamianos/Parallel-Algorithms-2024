@@ -17,6 +17,7 @@ This process is repeated for 2𝑁−1 steps, ensuring that by the end of this p
 ## 2. Phase 2 (Output Phase):
 
 - The sorted values are output from the array. Various methods can be employed, but the key idea is to sequentially output the sorted values from the leftmost processor to the rightmost one.
+- Based on our pdf, it is mentioned that `Method 4, on the other hand, requires only 3N — 1 steps to sort and output the numbers, since the numbers begin emerging from the left end of the array during alternate steps immediately following the entry of the last input into the array.`, therefore the Method 4 is used, being the most efficient one. 
 
 # Implementation
 
