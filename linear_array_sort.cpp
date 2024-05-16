@@ -129,6 +129,7 @@ int main() {
     auto end_parallel = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration_parallel = end_parallel - start_parallel;
     std::cout << "Parallel execution time: " << duration_parallel.count() << " seconds" << std::endl;
+    std::cout << "Sequential execution time: " << duration_sequential.count() << " seconds" << std::endl;
 
     return 0;
 }
