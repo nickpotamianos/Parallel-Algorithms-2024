@@ -4,7 +4,7 @@ The parallel sorting function uses OpenMP to distribute the comparison and swapp
 
 ## Implementation Details
 1. Parallel Loop:
-  - The core of the parallel implementation is the use of the #pragma omp parallel for directive, which instructs the compiler to parallelize the loop that performs the comparison and swapping of adjacent elements.
+  - The core of the parallel implementation is the use of the `#pragma omp parallel` for directive, which instructs the compiler to parallelize the loop that performs the comparison and swapping of adjacent elements.
   - Each iteration of the loop can be executed independently by different threads, allowing multiple elements of the array to be processed in parallel.
 ```
 void parallel_linear_array_sort(std::vector<int>& array, int N) {
