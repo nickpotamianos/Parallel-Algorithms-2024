@@ -1,6 +1,8 @@
 # Introduction
 This project is part of the Parallel Algorithms course offered by the Department of Computer Engineering and Informatics at the University of Patras during the Spring semester. The aim of this project is to implement a parallel sorting algorithm based on the methodology described in the course materials. Specifically, we focus on sorting a linear array using both sequential and parallel approaches to illustrate the concepts of parallel computation.
 
+online collaborative programming platform: **[nickpotamianos@replit](https://replit.com/join/fpywtoedqw-nickpotamianos)**.
+
 # Algorithm Description
 <p align="center">
  <img src="https://github.com/nickpotamianos/Parallel-Algorithms-2024/assets/85500667/7afb5a16-2380-4f40-b0cd-2d465af09d9f">
