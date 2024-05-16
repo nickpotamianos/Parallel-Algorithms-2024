@@ -30,8 +30,8 @@ void print_array(const std::vector<int>& array) {
     std::cout << std::endl;
 }
 
-// Sequential linear array sorting algorithm
-void sequential_linear_array_sort(std::vector<int>& array, int N) {
+// Phase 1: Sequential linear array sorting algorithm
+void phase1_sequential_linear_array_sort(std::vector<int>& array, int N) {
     for (int step = 0; step < 2 * N - 1; ++step) {
         for (int i = 0; i < N - 1; ++i) {
             if (array[i] > array[i + 1]) {
@@ -41,8 +41,8 @@ void sequential_linear_array_sort(std::vector<int>& array, int N) {
     }
 }
 
-// Parallel linear array sorting algorithm
-void parallel_linear_array_sort(std::vector<int>& array, int N) {
+// Phase 1: Parallel linear array sorting algorithm
+void phase1_parallel_linear_array_sort(std::vector<int>& array, int N) {
     for (int step = 0; step < 2 * N - 1; ++step) {
         #pragma omp parallel for
         for (int i = 0; i < N - 1; ++i) {
@@ -51,6 +51,37 @@ void parallel_linear_array_sort(std::vector<int>& array, int N) {
             }
         }
     }
+}
+
+// Phase 2: Sequential output sorted array (Method 4)
+void phase2_sequential_output_sorted_array(std::vector<int>& array, int N) {
+    bool sorted = false;
+    while (!sorted) {
+        sorted = true;
+        for (int i = 1; i < N; ++i) {
+            if (array[i - 1] > array[i]) {
+                sorted = false;
+                std::swap(array[i - 1], array[i]);
+            }
+        }
+    }
+    print_array(array);
+}
+
+// Phase 2: Parallel output sorted array (Method 4)
+void phase2_parallel_output_sorted_array(std::vector<int>& array, int N) {
+    bool sorted = false;
+    while (!sorted) {
+        sorted = true;
+        #pragma omp parallel for shared(sorted)
+        for (int i = 1; i < N; ++i) {
+            if (array[i - 1] > array[i]) {
+                sorted = false;
+                std::swap(array[i - 1], array[i]);
+            }
+        }
+    }
+    print_array(array);
 }
 
 int main() {
@@ -80,26 +111,23 @@ int main() {
 
     std::vector<int> original_array = array; // Store the original array
 
-    // Measure and display time for sequential sorting (linear array sorting)
+    // Measure and display time for sequential sorting (Phase 1 and Phase 2)
     auto start_sequential = std::chrono::high_resolution_clock::now();
-    sequential_linear_array_sort(array, N);
+    phase1_sequential_linear_array_sort(array, N);
+    phase2_sequential_output_sorted_array(array, N); // Phase 2 sequential
     auto end_sequential = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration_sequential = end_sequential - start_sequential;
-    std::cout << "Sorted array (sequential): ";
-    print_array(array);
     std::cout << "Sequential execution time: " << duration_sequential.count() << " seconds" << std::endl;
 
     // Restore the original array for parallel sorting
     array = original_array;
 
-    // Measure and display time for parallel sorting (linear array sorting)
+    // Measure and display time for parallel sorting (Phase 1 and Phase 2)
     auto start_parallel = std::chrono::high_resolution_clock::now();
-    parallel_linear_array_sort(array, N);
+    phase1_parallel_linear_array_sort(array, N);
+    phase2_parallel_output_sorted_array(array, N); // Phase 2 parallel
     auto end_parallel = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration_parallel = end_parallel - start_parallel;
-    std::cout << "Sorted array (parallel): ";
-    print_array(array);
-    std::cout << "Sequential execution time: " << duration_sequential.count() << " seconds" << std::endl;
     std::cout << "Parallel execution time: " << duration_parallel.count() << " seconds" << std::endl;
 
     return 0;
