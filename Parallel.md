@@ -2,6 +2,8 @@
 ## Overview
 The parallel sorting function uses OpenMP to distribute the comparison and swapping operations across multiple threads. By doing so, it allows different parts of the array to be processed simultaneously, reducing the overall execution time.
 
+#Properties of the algorithm
+
 ## Implementation Details
 1. Parallel Loop:
   - The core of the parallel implementation is the use of the `#pragma omp parallel` for directive, which instructs the compiler to parallelize the loop that performs the comparison and swapping of adjacent elements.
