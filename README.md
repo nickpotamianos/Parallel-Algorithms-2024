@@ -2,8 +2,13 @@
 This project is part of the Parallel Algorithms course offered by the Department of Computer Engineering and Informatics at the University of Patras during the Spring semester. The aim of this project is to implement a parallel sorting algorithm based on the methodology described in the course materials. Specifically, we focus on sorting a linear array using both sequential and parallel approaches to illustrate the concepts of parallel computation.
 
 # Algorithm Description
+<p align="center">
+ <img src="https://github.com/nickpotamianos/Parallel-Algorithms-2024/assets/85500667/7afb5a16-2380-4f40-b0cd-2d465af09d9f">
+</p>
+
 The algorithm we implemented is known as the Linear Array Sorting Algorithm. It is designed to sort a list of 
 𝑁 numbers using a linear array of processors. Each processor in the array is connected to its immediate neighbors, allowing for localized data exchanges. The sorting process involves two main phases:
+
 
 ## 1. Phase 1 (Sorting Phase):
 
