@@ -22,7 +22,20 @@ This process is repeated for 2𝑁−1 steps, ensuring that by the end of this p
 ## 2. Phase 2 (Output Phase):
 
 - The sorted values are output from the array. Various methods can be employed, but the key idea is to sequentially output the sorted values from the leftmost processor to the rightmost one.
-- Based on our pdf, it is mentioned that `Method 4, on the other hand, requires only 3N — 1 steps to sort and output the numbers, since the numbers begin emerging from the left end of the array during alternate steps immediately following the entry of the last input into the array.`, therefore the Method 4 is used, being the most efficient one. 
+- Based on our pdf, it is mentioned that `"Method 4, on the other hand, requires only 3N — 1 steps to sort and output the numbers, since the numbers begin emerging from the left end of the array during alternate steps immediately following the entry of the last input into the array."`, therefore the Method 4 is used, being the most efficient one. 
+
+![Untitled](https://github.com/nickpotamianos/Parallel-Algorithms-2024/assets/85500667/e08cf187-7974-47f6-8d93-5f3b3cba9c17)
+
+1. No More Input from the Left:
+
+- This is implicitly handled in our while loop. Once the array is sorted during Phase 1, no further inputs (or swaps) are needed from the left, which is similar to processors not receiving new inputs from their left neighbors.
+2. Sequential and Parallel Sorting:
+
+- Both phase2_sequential_output_sorted_array and phase2_parallel_output_sorted_array functions ensure the array is fully sorted before outputting the values. This corresponds to the processors beginning to pass their values left when no further sorting (input from the left) is required.
+3. Optimized Output:
+
+- The functions repeatedly check and finalize the sorted order, ensuring that each position (processor) passes its value left only when it is correctly placed.
+
 
 # Implementation
 
@@ -36,35 +49,74 @@ Our implementation consists of a C++ program that reads an array of integers fro
 - The array is sorted using the linear array sorting algorithm that iterates over the array multiple times, comparing and swapping adjacent elements as needed.
   
 3. Parallel Linear Array Sorting:
-
 - The same sorting logic is applied, but using OpenMP to parallelize the comparison and swapping of adjacent elements. This allows multiple parts of the array to be processed simultaneously, leveraging multi-core processors to speed up the sorting.
-4. Performance Measurement:
 
+4. Performance Measurement:
 - The execution time for both the sequential and parallel sorting algorithms is measured and displayed to the user, allowing for a comparison of the two approaches.
+
 # Code Logic
 ## Initialization:
-
 - The user selects whether to input numbers manually or read from a file.
 - The array of integers is initialized based on the selected input method.
+
 ## Sequential Sorting Function:
+- **For simplicity, the sequential code we are using is our Linear Array Sorting Algorithm but without the OpenMP library.
+- We should also consider that the best sequential sorting algorithm runs in `Θ(NlogN)` steps.**
 
-- Repeatedly iterates over the array.
-- Compares adjacent elements and swaps them if out of order.
-- Runs for 2𝑁−1 steps to ensure complete sorting.
+
 ## Parallel Sorting Function:
-
 - Uses OpenMP to parallelize the iteration over the array.
-- Compares and swaps adjacent elements in parallel.
-- Also runs for 2𝑁−1 steps, but processes multiple elements simultaneously.
-## Performance Measurement:
+- Runs for 2𝑁−1 steps, but processes multiple elements simultaneously.
 
+## Exporting the Sorted Sequence (Phase 2):
+- The sorted values are output from the array using Method 4.
+- **Sequential Output (Phase 2)**:
+  - Description: The function processes the array multiple times, adjusting elements that are not in order until the entire array is sorted. This ensures thorough checking until no more elements need adjustment.
+ 
+    ```cpp
+    void phase2_sequential_output_sorted_array(std::vector<int>& array, int N) {
+        bool sorted = false;
+        while (!sorted) {
+            sorted = true;
+            for (int i = 1; i < N; ++i) {
+                if (array[i - 1] > array[i]) {
+                    sorted = false;
+                    std::swap(array[i - 1], array[i]);
+                }
+            }
+        }
+        print_array(array);
+    }
+    ```
+
+- **Parallel Output (Phase 2)**:
+  - Description:  Using OpenMP, the function distributes the task of checking and adjusting elements across multiple threads. This allows faster processing for large arrays as multiple segments are handled simultaneously.
+ 
+    ```cpp
+    void phase2_parallel_output_sorted_array(std::vector<int>& array, int N) {
+        bool sorted = false;
+        while (!sorted) {
+            sorted = true;
+            #pragma omp parallel for shared(sorted)
+            for (int i = 1; i < N; ++i) {
+                if (array[i - 1] > array[i]) {
+                    sorted = false;
+                    std::swap(array[i - 1], array[i]);
+                }
+            }
+        }
+        print_array(array);
+    }
+    ```
+ 
+## Performance Measurement:
 - Uses the chrono library to measure execution time.
 - Outputs the sorted array and execution time for both sequential and parallel sorting.
 
 # Quick Guide for Execution
 1. Clone the Repository:
 
-    `git clone https://github.com/yourusername/parallel-sorting-algorithm.git` 
+    `git clone https://github.com/nickpotamianos/parallel-sorting-algorithm.git` 
 
     `cd parallel-sorting-algorithm`
 
@@ -86,13 +138,11 @@ You can run the program and choose to input numbers manually or provide a file w
 - File Input:
   - Enter `2` when prompted to provide a file name.
   - Enter the file name (make sure the file is in the same directory or provide the full path).
-5. View Results:
 
+5. View Results:
 - The program will display the sorted array using both sequential and parallel sorting methods.
 - Execution times for both methods will also be displayed, allowing you to compare their performance.
-
 
 # Demo Video 
 
 https://github.com/nickpotamianos/Parallel-Algorithms-2024/assets/85500667/39b984f1-9ddb-4c1a-86a6-d3b5d77fa114
-
